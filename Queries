@@ -1,0 +1,72 @@
+Query 1: Retrieve all appointments for a specific patient along with doctor and nurse details (Multi-table JOIN)
+
+SELECT a.Appointment_ID, a.Appointment_Date, a.Appointment_Time, 
+       d.First_Name AS Doctor_First_Name, d.Last_Name AS Doctor_Last_Name, 
+       n.First_Name AS Nurse_First_Name, n.Last_Name AS Nurse_Last_Name
+FROM Appointment a
+JOIN Doctor d ON a.Doctor_ID = d.Doctor_ID
+JOIN Nurse n ON a.Nurse_ID = n.Nurse_ID
+WHERE a.Patient_ID = 123; -- Replace with actual Patient_ID
+
+
+Query 2: List all patients currently occupying rooms and their room details (Multi-table JOIN)
+
+SELECT p.First_Name, p.Last_Name, r.Room_Number, r.Room_Type, r.Availability_Status
+FROM Patient p
+JOIN Hospital_Room r ON p.Room_ID = r.Room_ID
+WHERE r.Availability_Status = 'Occupied';
+
+
+Query 3: Count the number of available rooms by room type (Aggregation & Grouping)
+
+SELECT Room_Type, COUNT(*) AS Available_Rooms
+FROM Hospital_Room
+WHERE Availability_Status = 'Available'
+GROUP BY Room_Type;
+
+
+Query 4: Calculate the total number of appointments handled by a doctor (Aggregation & Grouping)
+
+SELECT d.First_Name, d.Last_Name, COUNT(a.Appointment_ID) AS Total_Appointments
+FROM Appointment a
+JOIN Doctor d ON a.Doctor_ID = d.Doctor_ID
+GROUP BY d.Doctor_ID, d.First_Name, d.Last_Name
+HAVING d.Doctor_ID = 456; -- Replace 456 with actual Doctor_ID
+
+
+
+Query 5: Update a room's availability status using a Trigger (Triggers)
+
+DELIMITER //
+
+CREATE TRIGGER update_room_availability_after_discharge
+AFTER UPDATE ON Patient
+FOR EACH ROW
+BEGIN
+   IF NEW.Room_ID IS NULL THEN
+      UPDATE Hospital_Room
+      SET Availability_Status = 'Available'
+      WHERE Room_ID = OLD.Room_ID;
+   END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+Query 6: A Stored Procedure to update prescription dosage (Procedures)
+
+DELIMITER //
+
+CREATE PROCEDURE UpdateDosage(IN prescriptionID INT, IN newDosage VARCHAR(50))
+BEGIN
+   UPDATE Prescription
+   SET Dosage = newDosage
+   WHERE Prescription_ID = prescriptionID;
+END //
+
+DELIMITER ;
+
+2  Call the procedure:
+CALL UpdateDosage(101, '500mg'); -- Replace with actual Prescription_ID and new Dosage
