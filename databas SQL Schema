@@ -1,0 +1,105 @@
+CREATE TABLE Nurse (
+    Nurse_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Shift_Timing VARCHAR(20),
+    Phone VARCHAR(15),
+    Email VARCHAR(50)
+);
+
+
+CREATE TABLE Staff (
+    Staff_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Role VARCHAR(50),
+    Phone VARCHAR(15),
+    Email VARCHAR(50)
+);
+
+
+CREATE TABLE Hospital_Room (
+    Room_ID INT PRIMARY KEY,
+    Room_Number VARCHAR(10),
+    Room_Type VARCHAR(50),
+    Availability_Status VARCHAR(50)
+);
+
+
+CREATE TABLE Patient (
+    Patient_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Date_of_Birth DATE,
+    Address VARCHAR(255),
+    Phone VARCHAR(15),
+    Email VARCHAR(50),
+    Emergency_Contact VARCHAR(15),
+    Insurance_Details VARCHAR(255),
+    Room_ID INT, -- Foreign key to Hospital_Room
+    Nurse_ID INT, -- Foreign key to Nurse
+    Staff_ID INT, -- Foreign key to Staff
+    FOREIGN KEY (Room_ID) REFERENCES Hospital_Room(Room_ID),
+    FOREIGN KEY (Nurse_ID) REFERENCES Nurse(Nurse_ID),
+    FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID)
+);
+
+
+CREATE TABLE Doctor (
+    Doctor_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Specialization VARCHAR(100),
+    Phone VARCHAR(15),
+    Email VARCHAR(50)
+);
+CREATE TABLE Appointment (
+    Appointment_ID INT PRIMARY KEY,
+    Appointment_Date DATE,
+    Appointment_Time TIME,
+    Status VARCHAR(50),
+    Patient_ID INT,
+    Doctor_ID INT,
+    Nurse_ID INT, -- Foreign key to Nurse
+    Staff_ID INT, -- Foreign key to Staff
+    FOREIGN KEY (Patient_ID) REFERENCES Patient(Patient_ID),
+    FOREIGN KEY (Doctor_ID) REFERENCES Doctor(Doctor_ID),
+    FOREIGN KEY (Nurse_ID) REFERENCES Nurse(Nurse_ID),
+    FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID)
+);
+
+CREATE TABLE Medical_Record (
+    Record_ID INT PRIMARY KEY,
+    Date DATE,
+    Diagnosis TEXT,
+    Treatment TEXT,
+    Prescribed_Medication TEXT,
+    Patient_ID INT,
+    Doctor_ID INT,
+    Nurse_ID INT, -- Foreign key to Nurse
+    FOREIGN KEY (Patient_ID) REFERENCES Patient(Patient_ID),
+    FOREIGN KEY (Doctor_ID) REFERENCES Doctor(Doctor_ID),
+    FOREIGN KEY (Nurse_ID) REFERENCES Nurse(Nurse_ID)
+);
+
+
+CREATE TABLE Pharmacy (
+    Pharmacy_ID INT PRIMARY KEY,
+    Drug_Name VARCHAR(100),
+    Dosage VARCHAR(50),
+    Stock_Level INT
+);
+
+
+CREATE TABLE Prescription (
+    Prescription_ID INT PRIMARY KEY,
+    Date DATE,
+    Dosage VARCHAR(50),
+    Duration VARCHAR(50),
+    Patient_ID INT,
+    Doctor_ID INT,
+    Pharmacy_ID INT,
+    FOREIGN KEY (Patient_ID) REFERENCES Patient(Patient_ID),
+    FOREIGN KEY (Doctor_ID) REFERENCES Doctor(Doctor_ID),
+    FOREIGN KEY (Pharmacy_ID) REFERENCES Pharmacy(Pharmacy_ID)
+);
