@@ -1,0 +1,53 @@
+INSERT INTO Nurse (Nurse_ID, First_Name, Last_Name, Shift_Timing, Phone, Email)
+VALUES (1, 'Alice', 'Smith', 'Day', '123-456-7890', 'alice.smith@hospital.com');
+
+INSERT INTO Nurse (Nurse_ID, First_Name, Last_Name, Shift_Timing, Phone, Email)
+VALUES (2, 'Bob', 'Johnson', 'Night', '098-765-4321', 'bob.johnson@hospital.com');
+
+INSERT INTO Staff (Staff_ID, First_Name, Last_Name, Role, Phone, Email)
+VALUES (1, 'John', 'Doe', 'Receptionist', '234-567-8901', 'john.doe@hospital.com');
+
+INSERT INTO Staff (Staff_ID, First_Name, Last_Name, Role, Phone, Email)
+VALUES (2, 'Jane', 'Miller', 'Technician', '345-678-9012', 'jane.miller@hospital.com');
+
+INSERT INTO Hospital_Room (Room_ID, Room_Number, Room_Type, Availability_Status)
+VALUES (1, '101A', 'Private', 'Occupied');
+
+INSERT INTO Hospital_Room (Room_ID, Room_Number, Room_Type, Availability_Status)
+VALUES (2, '102B', 'Shared', 'Available');
+
+INSERT INTO Patient (Patient_ID, First_Name, Last_Name, Date_of_Birth, Address, Phone, Email, Emergency_Contact, Insurance_Details, Room_ID, Nurse_ID, Staff_ID)
+VALUES (1, 'David', 'Smith', '1990-05-14', '123 Elm St', '456-789-0123', 'david.smith@hospital.com', '789-012-3456', 'ABC Insurance Plan', 1, 1, 1);
+
+INSERT INTO Patient (Patient_ID, First_Name, Last_Name, Date_of_Birth, Address, Phone, Email, Emergency_Contact, Insurance_Details, Room_ID, Nurse_ID, Staff_ID)
+VALUES (2, 'Emma', 'Williams', '1985-09-22', '456 Oak St', '567-890-1234', 'emma.williams@hospital.com', '890-123-4567', 'XYZ Insurance Plan', 2, 2, 2);
+
+INSERT INTO Doctor (Doctor_ID, First_Name, Last_Name, Specialization, Phone, Email)
+VALUES (1, 'James', 'Brown', 'Cardiology', '123-789-4560', 'james.brown@hospital.com');
+
+INSERT INTO Doctor (Doctor_ID, First_Name, Last_Name, Specialization, Phone, Email)
+VALUES (2, 'Linda', 'Taylor', 'Dermatology', '456-123-7890', 'linda.taylor@hospital.com');
+
+INSERT INTO Appointment (Appointment_ID, Appointment_Date, Appointment_Time, Status, Patient_ID, Doctor_ID, Nurse_ID, Staff_ID)
+VALUES (1, '2024-10-10', '10:00:00', 'Scheduled', 1, 1, 1, 1);
+
+INSERT INTO Appointment (Appointment_ID, Appointment_Date, Appointment_Time, Status, Patient_ID, Doctor_ID, Nurse_ID, Staff_ID)
+VALUES (2, '2024-10-11', '14:30:00', 'Completed', 2, 2, 2, 2);
+
+INSERT INTO Medical_Record (Record_ID, Date, Diagnosis, Treatment, Prescribed_Medication, Patient_ID, Doctor_ID, Nurse_ID)
+VALUES (1, '2024-10-05', 'Hypertension', 'Lifestyle changes, medication', 'Lisinopril', 1, 1, 1);
+
+INSERT INTO Medical_Record (Record_ID, Date, Diagnosis, Treatment, Prescribed_Medication, Patient_ID, Doctor_ID, Nurse_ID)
+VALUES (2, '2024-10-06', 'Acne', 'Topical ointment', 'Clindamycin', 2, 2, 2);
+
+INSERT INTO Pharmacy (Pharmacy_ID, Drug_Name, Dosage, Stock_Level)
+VALUES (1, 'Paracetamol', '500mg', 100);
+
+INSERT INTO Pharmacy (Pharmacy_ID, Drug_Name, Dosage, Stock_Level)
+VALUES (2, 'Ibuprofen', '200mg', 200);
+
+INSERT INTO Prescription (Prescription_ID, Date, Dosage, Duration, Patient_ID, Doctor_ID, Pharmacy_ID)
+VALUES (1, '2024-10-07', '500mg', '7 days', 1, 1, 1);
+
+INSERT INTO Prescription (Prescription_ID, Date, Dosage, Duration, Patient_ID, Doctor_ID, Pharmacy_ID)
+VALUES (2, '2024-10-08', '200mg', '5 days', 2, 2, 2);
